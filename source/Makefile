@@ -1,9 +1,11 @@
 
+
+VPAHT=SocketClass
 all:subsystem BIN
 
 subsystem:
 	cd SocketClass && $(MAKE)
-	cp ./SocketClass/Socket.* ./
+	cp ./SocketClass/*.o ./
 
 BIN:bin/tcpRec bin/tcpsend
 
@@ -14,10 +16,10 @@ bin/tcpsend:TCPSend.o Socket.o
 	g++ -g -o bin/tcpsend TCPSend.o Socket.o
 
 TCPRecv.o:TCPRecv.cpp
-	g++ -g -c TCPRecv.cpp
+	g++ -g -ISocketClass -c TCPRecv.cpp
 
 TCPSend.o:TCPSend.cpp
-	g++ -g -c TCPSend.cpp
+	g++ -g -ISocketClass -c TCPSend.cpp
 
 clean:
 	rm *.o bin/tcpRec bin/tcpsend
